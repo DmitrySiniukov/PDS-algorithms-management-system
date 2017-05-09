@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Enterprise.Infrastructure
 {
-	public static class Extentions
+    public static class Extentions
 	{
 		private static Dictionary<int, string> _month;
 
@@ -36,7 +34,7 @@ namespace Enterprise.Infrastructure
 
 		public static string ToUkrDateTimeString(this DateTime dateTime)
 		{
-			return string.Format("{0} {1} {2}р. ({3:D2}:{4:D2})", dateTime.Day, Months[dateTime.Month], dateTime.Year, dateTime.Hour, dateTime.Minute);
+			return string.Format("{0} {1} {2}р. {3:D2}:{4:D2}", dateTime.Day, Months[dateTime.Month], dateTime.Year, dateTime.Hour, dateTime.Minute);
 		}
 	}
 }

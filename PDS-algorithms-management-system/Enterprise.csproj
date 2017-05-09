@@ -203,7 +203,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\MachineSchedule.cs" />
     <Compile Include="Infrastructure\Repository.cs" />
     <Compile Include="Infrastructure\Extentions.cs" />
     <Compile Include="Models\Schedule.cs" />
@@ -772,6 +771,7 @@
     <Content Include="Views\Manage\CreateTechnology.cshtml" />
     <Content Include="Scripts\package.json" />
     <Content Include="Views\Manage\Compatibilities.cshtml" />
+    <Content Include="Views\Manage\Algorithms.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201604062110246_InitialCreate.resx">

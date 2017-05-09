@@ -124,7 +124,13 @@ namespace Enterprise.Controllers
 			return actionResult;
 		}
 
-		#region Products
+	    public ActionResult Algorithms()
+	    {
+	        var availableAlgorithms = Repository.GetAvailableAlgorithms(User.Identity.GetUserId());
+	        return View(availableAlgorithms);
+	    }
+
+	    #region Products
 
 		//[Authorize(Roles = "Technologist")]
 		//[HttpGet]
@@ -377,58 +383,58 @@ namespace Enterprise.Controllers
 
         #region Common actions
 
-        private ActionResult editItems(Item instance, string message = null)
-		{
-			ViewBag.StatusMessage = message;
+  //      private ActionResult editItems(Item instance, string message = null)
+		//{
+		//	ViewBag.StatusMessage = message;
 
-			ViewBag.Instance = instance;
-			var list = Repository.GetItems(instance);
+		//	ViewBag.Instance = instance;
+		//	var list = Repository.GetItems(instance);
 
-			return View("EditItems", list);
-		}
+		//	return View("EditItems", list);
+		//}
 
-		private ActionResult editItems(Item instance, IEnumerable<Item> items)
-		{
-			if (ModelState.IsValid)
-			{
-				Repository.UpdateItems(items);
-				return RedirectToAction("Index", new {message = ManageMessageId.ItemsEditedSuccess});
-			}
+		//private ActionResult editItems(Item instance, IEnumerable<Item> items)
+		//{
+		//	if (ModelState.IsValid)
+		//	{
+		//		Repository.UpdateItems(items);
+		//		return RedirectToAction("Index", new {message = ManageMessageId.ItemsEditedSuccess});
+		//	}
 
-			ViewBag.Instance = instance;
-			return View("EditItems", items);
-		}
+		//	ViewBag.Instance = instance;
+		//	return View("EditItems", items);
+		//}
 		
-		private ActionResult deleteItem(Item instance, int id)
-		{
-			var message = string.Empty;
-			try
-			{
-				Repository.DeleteItem(id, instance.InheritorName);
-				message = string.Format("{0} було успішно видалено.", instance.InheritorNameUrk);
-			}
-			catch (Exception e)
-			{
-				message = string.Format("Є дані, що писилаються на цей запис. {0} не було видалено.", instance.InheritorNameUrk);
-			}
-			return RedirectToAction(string.Format("Edit{0}s", instance.InheritorName), new { message = message });
-		}
+		//private ActionResult deleteItem(Item instance, int id)
+		//{
+		//	var message = string.Empty;
+		//	try
+		//	{
+		//		Repository.DeleteItem(id, instance.InheritorName);
+		//		message = string.Format("{0} було успішно видалено.", instance.InheritorNameUrk);
+		//	}
+		//	catch (Exception e)
+		//	{
+		//		message = string.Format("Є дані, що писилаються на цей запис. {0} не було видалено.", instance.InheritorNameUrk);
+		//	}
+		//	return RedirectToAction(string.Format("Edit{0}s", instance.InheritorName), new { message = message });
+		//}
 		
-		private ActionResult createItem(Item instance)
-		{
-			return View("CreateItem", instance);
-		}
+		//private ActionResult createItem(Item instance)
+		//{
+		//	return View("CreateItem", instance);
+		//}
 
-		private ActionResult createItemPost(Item instance)
-		{
-			if (ModelState.IsValid)
-			{
-				Repository.CreateItem(instance, User.Identity.GetUserId());
-				return RedirectToAction(string.Format("Edit{0}s", instance.InheritorName),
-					new { message = string.Format("{0} успішно збережено.", instance.InheritorNameUrk) });
-			}
-			return View("CreateItem", instance);
-		}
+		//private ActionResult createItemPost(Item instance)
+		//{
+		//	if (ModelState.IsValid)
+		//	{
+		//		Repository.CreateItem(instance, User.Identity.GetUserId());
+		//		return RedirectToAction(string.Format("Edit{0}s", instance.InheritorName),
+		//			new { message = string.Format("{0} успішно збережено.", instance.InheritorNameUrk) });
+		//	}
+		//	return View("CreateItem", instance);
+		//}
 
 		#endregion
 
@@ -697,6 +703,7 @@ namespace Enterprise.Controllers
 		#endregion
 
 		#region Helpers
+
 		// Used for XSRF protection when adding external logins
 		private const string XsrfKey = "XsrfId";
 

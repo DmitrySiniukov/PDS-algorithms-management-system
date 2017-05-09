@@ -1,0 +1,89 @@
+﻿@using Enterprise.Infrastructure
+@using Enterprise.Models
+@using Microsoft.AspNet.Identity
+@model List<Algorithm>
+@{
+    ViewBag.Title = "Алгоритми";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Distribute the algorithms
+    var userId = User.Identity.GetUserId();
+    var myAlgorithms = new List<Algorithm>();
+    var publishedAlgs = new List<Algorithm>();
+    foreach (var alg in Model)
+    {
+        if (string.Compare(userId, alg.UserId, StringComparison.InvariantCultureIgnoreCase) == 0)
+        {
+            myAlgorithms.Add(alg);
+            continue;
+        }
+        publishedAlgs.Add(alg);
+    }
+}
+
+<h2>Мої алгоритми</h2>
+<hr />
+
+<div class="panel">
+    <div class="panel-body">
+        <div>
+            @*@Html.ActionLink("Додати алгоритм", "Create{0}", "Manage", htmlAttributes: new { @class = "btn btn-default", @style = "margin-right: 10px;" }, routeValues: null)*@
+        </div>
+        <table class="content-table table table-striped table-condensed table-bordered">
+            <tr>
+                <th class="text-center">Опубл.</th>
+                <th class="text-center">Назва</th>
+                <th class="text-center">Опис</th>
+                <th class="text-center">Дата створення</th>
+                <th class="text-center">Дії</th>
+            </tr>
+
+            @foreach (var alg in myAlgorithms)
+            {
+                <tr>
+                    <td class="text-center" style="padding: 0; vertical-align: middle;">@(alg.Published ? 1 : 0)</td>
+                    <td class="text-center" style="padding: 0; vertical-align: middle;">
+                        @alg.Name
+                    </td>
+                    <td style="padding: 0;">
+                        @alg.Description
+                    </td>
+                    <td class="text-center" style="padding: 0; vertical-align: middle;">
+                        @alg.DateAdd.ToUkrDateTimeString()
+                    </td>
+                    <td>...</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<h2>Алгоритми інших користувачів</h2>
+<hr />
+
+<div class="panel">
+    <div class="panel-body">
+        <table class="content-table table table-striped table-condensed table-bordered">
+            <tr>
+                <th class="text-center">Назва</th>
+                <th class="text-center">Опис</th>
+                <th class="text-center">Дата створення</th>
+            </tr>
+
+            @foreach (var alg in publishedAlgs)
+            {
+                <tr>
+                    <td class="text-center" style="padding: 0; vertical-align: middle;">
+                        @alg.Name
+                    </td>
+                    <td style="padding: 0;">
+                        @alg.Description
+                    </td>
+                    <td class="text-center" style="padding: 0; vertical-align: middle;">
+                        @alg.DateAdd.ToUkrDateTimeString()
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
