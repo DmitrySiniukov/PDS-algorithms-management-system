@@ -1,0 +1,34 @@
+﻿@using Enterprise.Models
+@model Compatibilities
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = string.Format("Виберіть операції, які виконуються на дільниці \"{0}\".", Model.Department.Name);
+}
+
+<h2>
+    @ViewBag.Title
+</h2>
+
+<div class="panel">
+    <div class="panel-body">
+        <hr />
+            <table class="content-table table table-striped table-condensed table-bordered">
+                <tr>
+                    <th class="text-center">Операція</th>
+                    <th class="text-center">Ознака виконуваності</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                       <td class="text-center">@item.Task.Name</td>
+                        <td class="text-center">
+                            <a href="/Manage/ChangeCompatibility?dp=@(Model.Department.Id)&task=@(item.Task.Id)&value=@(item.IsCompatible ? bool.FalseString : bool.TrueString)"
+                               title="Змінити" class="light">
+                                <img width="16" height="16" src="@(item.IsCompatible ? "/Content/Images/greenLight.png" : "/Content/Images/grey.png")"/>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+    </div>
+</div>

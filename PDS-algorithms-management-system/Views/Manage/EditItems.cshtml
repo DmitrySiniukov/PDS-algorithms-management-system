@@ -1,0 +1,58 @@
+﻿@using Enterprise.Models
+@using Microsoft.CSharp.RuntimeBinder
+@model IEnumerable<Item>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var instance = ViewBag.Instance as Item;
+    if (instance == null)
+    {
+        throw new Exception("An item instance hasn`t been passed in the view.");
+    }
+    ViewBag.Title = instance.Title;
+}
+
+<h2>
+	@ViewBag.Title
+</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.StatusMessage))
+{
+	<p class="text-success">@ViewBag.StatusMessage</p>
+}
+
+<div class="panel">
+	<div class="panel-body">
+		<div>
+			@Html.ActionLink(string.Format("Додати {0}", instance.InheritorNameUrk.ToLower()), string.Format("Create{0}", instance.InheritorName), "Manage", htmlAttributes: new { @class = "btn btn-default", @style = "margin-right: 10px;" }, routeValues: null)
+		</div>
+		<hr />
+		@using (Html.BeginForm(string.Format("Edit{0}s", instance.InheritorName), "Manage", FormMethod.Post))
+		{
+			@Html.ValidationSummary()
+			<table class="content-table table table-striped table-condensed table-bordered">
+				<tr>
+					<th class="text-center">id</th>
+					<th class="text-center">Назва*</th>
+					@if (instance is Machine)
+					{
+						<th class="text-center">Дільниця</th>
+					}
+                    @if (instance is Product)
+                    {
+                        <th class="text-center">Дедлайн*</th>
+                    }
+					<th class="text-center">Опис</th>
+					<th class="text-center">Ким створено (логін)</th>
+					<th class="text-center">Дата створення</th>
+					<th class="text-center">Дії</th>
+				</tr>
+				@Html.EditorForModel()
+			</table>
+			<div class="form-group">
+				<div class="text-center">
+					<input type="submit" class="btn btn-default" value="Зберегти" @(Model.Any() ? string.Empty : "disabled")/>
+				</div>
+			</div>
+		}
+	</div>
+</div>

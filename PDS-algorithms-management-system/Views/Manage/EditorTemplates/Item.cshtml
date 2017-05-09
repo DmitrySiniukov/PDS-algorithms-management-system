@@ -1,0 +1,66 @@
+﻿@using Enterprise.Infrastructure;
+@using Enterprise.Models
+@model Item
+
+@{
+    var isMachineItem = Model is Machine;
+    var isProduct = Model is Product;
+    var fullPart = isMachineItem || isProduct ? 80d : 100d;
+}
+
+<tr>
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.CreationUserLogin)
+    @Html.HiddenFor(m => m.CreationDate)
+    <td class="text-center" style="width: @string.Format("{0}%", fullPart/20); vertical-align: middle;">
+        @Model.Id
+    </td>
+    <td class="text-center" style="width: @string.Format("{0}%", fullPart/4); padding: 0; vertical-align: middle;">
+        @Html.TextBoxFor(m => m.Name)
+    </td>
+    @if (isMachineItem)
+    {
+        var machine = (Machine)Model;
+        var list = new List<SelectListItem> { new SelectListItem { Value = "0", Text = string.Empty } };
+        list.AddRange(Repository.GetItems(new Department()).Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }));
+        list.First(x => x.Value == machine.DepartmentId.ToString()).Selected = true;
+
+        <td class="text-center" style="width: 20%; padding: 0; vertical-align: middle;">
+            @Html.DropDownListFor(m => ((Machine)m).DepartmentId, list, new { @style = "width: 100%;" })
+        </td>
+    }
+    @if (isProduct)
+    {
+        var deadline = ((Product)Model).Deadline;
+        var value = string.Empty;
+        if (deadline != null)
+        {
+            var d = (DateTime) deadline;
+            value = string.Format("{0}/{1:D2}/{2:D2} {3:D2}:{4:D2}", d.Year, d.Month, d.Day, d.Hour, d.Minute);
+        }
+        <td class="text-center" style="padding: 0; vertical-align: middle;">
+            @Html.TextBoxFor(m => ((Product)m).Deadline, new { @class = "jquery-date-time" })
+            <input type="hidden" class="date-time-lower" value="@value" />
+        </td>
+    }
+    <td style="width: @string.Format("{0}%", 3*fullPart/10); padding: 0;">
+        @Html.TextAreaFor(m => m.Description, new { @style = "width: 100%; min-width: 100%;" })
+    </td>
+    <td class="text-center" style="@string.Format("{0}%", 3*fullPart/20); padding: 0; vertical-align: middle;">
+        @Model.CreationUserLogin
+    </td>
+    <td class="text-center" style="@string.Format("{0}%", 3*fullPart/20); padding: 0; vertical-align: middle;">
+        @Model.CreationDate.ToUkrDateTimeString()
+    </td>
+    <td class="text-center" style="@string.Format("{0}%", fullPart/10); vertical-align: middle;">
+        @if (Model is Product)
+        {
+            @Html.ActionLink("Технологічна карта", string.Format("EditTechnologies/{0}", Model.Id), null, new {@style = "color: #00008b;"})<span> | </span>
+        }
+        else if (Model is Department)
+        {
+            @Html.ActionLink("Операції", string.Format("Compatibilities/{0}", Model.Id), null, new { @style = "color: #00008b;" })<span> | </span>
+        }
+        @Html.ActionLink(string.Format("Видалити {0}", Model.InheritorNameUrk.ToLower()), string.Format("Delete{0}/{1}", Model.InheritorName, Model.Id), null, new {@class = "confirmation", @style = "color: red;"})
+    </td>
+</tr>

@@ -1,0 +1,27 @@
+﻿@using System.Security.Principal
+@using Enterprise.Models
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@if (Request.IsAuthenticated)
+{
+	var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+	var user = userManager.FindById(User.Identity.GetUserId());
+	using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+	{
+		@Html.AntiForgeryToken()
+
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				@Html.ActionLink((user == null ? "Невідомий користувач" : string.Format("Привіт {0}!", user.FullName)), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+			</li>
+			<li><a href="javascript:document.getElementById('logoutForm').submit()">Вихід</a></li>
+		</ul>
+	}
+}
+else
+{
+	<ul class="nav navbar-nav navbar-right">
+		<li>@Html.ActionLink("Реєстрація", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+		<li>@Html.ActionLink("Вхід", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+	</ul>
+}

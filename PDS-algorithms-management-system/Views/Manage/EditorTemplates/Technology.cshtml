@@ -1,0 +1,24 @@
+﻿@using Enterprise.Infrastructure;
+@using Enterprise.Models
+@model Technology
+@{
+	var list = new List<SelectListItem> {new SelectListItem {Value = "", Text = "", Selected = true}};
+	var tasks = Repository.GetItems(new Task()).Select(x => new SelectListItem {Value = x.Id.ToString(), Text = x.Name});
+	list.AddRange(tasks);
+}
+
+<tr>
+	@Html.HiddenFor(m => m.Id)
+	<td class="text-center" style="width: 20%; padding: 0; vertical-align: middle;">
+		@Html.DropDownListFor(m => m.TaskId, list, new {@style = "width: 200px;"})
+	</td>
+	<td class="text-center" style="vertical-align: middle;">
+		@Html.TextBoxFor(m => m.Duration)
+	</td>
+	<td style="padding: 0;">
+		@Html.TextAreaFor(m => m.Description, new { @style = "width: 300px; min-width: 300px;" })
+	</td>
+	<td class="text-center" style="vertical-align: middle;">
+		@Html.ActionLink("Видалити операцію", string.Format("DeleteTechnology/{0}", Model.Id), null, new { @class = "confirmation", @style = "color: red;" })
+	</td>
+</tr>

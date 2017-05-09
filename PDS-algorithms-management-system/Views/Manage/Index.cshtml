@@ -1,0 +1,49 @@
+﻿@model Enterprise.Models.PersonalAreaModel
+@{
+	ViewBag.Title = "Особистий кабінет";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Особистий кабінет</h2>
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+	<h4 style="margin-top: 30px;">Функції</h4>
+	<hr />
+	<div class="form-group">
+		<div class="col-md-offset-2" style="margin-bottom: 30px;">
+			@*@switch (roleId)
+			{
+				case "technologist":
+					@Html.ActionLink("Ведення продуктів", "EditProducts", "Manage", htmlAttributes: new { @class = "btn btn-default", @style = "margin-right: 10px;" }, routeValues: null)
+					@Html.ActionLink("Ведення робіт", "EditTasks", "Manage", htmlAttributes: new { @class = "btn btn-default", @style = "margin-right: 10px;" }, routeValues: null)
+
+					break;
+				case "engineer":
+					@Html.ActionLink("Ведення дільниць", "EditDepartments", "Manage", htmlAttributes: new { @class = "btn btn-default", @style = "margin-right: 10px;" }, routeValues: null)
+					@Html.ActionLink("Ведення приладів", "EditMachines", "Manage", htmlAttributes: new { @class = "btn btn-default", @style = "margin-right: 10px;" }, routeValues: null)
+					break;
+			}
+			@Html.ActionLink("Аналіз розкладу виробництва", "Schedule", "Manage", htmlAttributes: new { @class = "btn btn-success" }, routeValues: null)*@
+		</div>
+	</div>
+
+	<h4>Особисті дані</h4>
+	<hr />
+
+	@Html.Partial("PersonalInfoPartial", Model.UserInfo)
+
+	<dl class="dl-horizontal">
+		<dt>Пароль:</dt>
+		<dd>
+			@if (Model.CommonData.HasPassword)
+			{
+				@Html.ActionLink("Зміна пароля", actionName: "ChangePassword", controllerName: "Manage", htmlAttributes: null, routeValues: null)
+			}
+			else
+			{
+				@Html.ActionLink("Створити пароль", actionName: "SetPassword", controllerName: "Manage", htmlAttributes: null, routeValues: null)
+			}
+		</dd>
+	</dl>
+
+</div>

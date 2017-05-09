@@ -1,0 +1,47 @@
+﻿@using Enterprise.Models
+@using Microsoft.CSharp.RuntimeBinder
+@model IEnumerable<Technology>
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+	var technologies = Model as Technologies;
+
+	ViewBag.Title = string.Format("Технологічна карта виробу \"{0}\"", technologies.ProductName);
+}
+
+<h2>
+	@ViewBag.Title
+</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.StatusMessage))
+{
+	<p class="text-success">@ViewBag.StatusMessage</p>
+}
+
+<div class="panel">
+	<div class="panel-body">
+		<div>
+			@Html.ActionLink("Додати операцію", string.Format("CreateTechnology/{0}", technologies.ProductId), null, new {@class = "btn btn-default", @style = "margin-right: 10px;"})
+		</div>
+		<hr />
+		@using (Html.BeginForm("EditTechnologies", "Manage", FormMethod.Post))
+		{
+			@Html.ValidationSummary()
+			<table class="content-table table table-striped table-condensed table-bordered">
+                @Html.HiddenFor(m => ((Technologies)m).ProductName)
+				<tr>
+					<th class="text-center">Операція*</th>
+					<th class="text-center">Тривалість, с*</th>
+					<th class="text-center">Опис</th>
+					<th class="text-center">Дії</th>
+				</tr>
+				@Html.EditorForModel()
+			</table>
+			<div class="form-group">
+				<div class="text-center">
+					<input type="submit" class="btn btn-default" value="Зберегти" @(Model.Any() ? string.Empty : "disabled") />
+				</div>
+			</div>
+		}
+	</div>
+</div>

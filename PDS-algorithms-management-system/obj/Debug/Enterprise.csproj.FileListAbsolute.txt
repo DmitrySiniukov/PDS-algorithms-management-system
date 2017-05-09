@@ -1,0 +1,178 @@
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\ApplicationInsights.config
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\roslyn\csc.exe
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\roslyn\Microsoft.CodeAnalysis.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\roslyn\Microsoft.CSharp.Core.targets
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\roslyn\Microsoft.VisualBasic.Core.targets
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\roslyn\System.Collections.Immutable.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\roslyn\System.Reflection.Metadata.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\roslyn\vbc.exe
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\roslyn\VBCSCompiler.exe
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\roslyn\VBCSCompiler.exe.config
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Enterprise.dll.config
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Enterprise.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Enterprise.pdb
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Antlr3.Runtime.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\EntityFramework.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\EntityFramework.SqlServer.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AI.Agent.Intercept.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AI.DependencyCollector.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AI.PerfCounterCollector.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AI.ServerTelemetryChannel.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AI.Web.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AI.WindowsServer.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.ApplicationInsights.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AspNet.Identity.Core.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AspNet.Identity.Owin.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Host.SystemWeb.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.Cookies.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.Facebook.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.Google.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.OAuth.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.Twitter.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Web.Infrastructure.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Newtonsoft.Json.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Owin.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.Helpers.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.Mvc.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.Optimization.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.Razor.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.WebPages.Deployment.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.WebPages.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.WebPages.Razor.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\WebGrease.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AI.DependencyCollector.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AI.ServerTelemetryChannel.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AI.Web.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AI.WindowsServer.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.ApplicationInsights.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.Helpers.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.Mvc.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.Optimization.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.Razor.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.WebPages.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.WebPages.Deployment.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\System.Web.WebPages.Razor.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Antlr3.Runtime.pdb
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Newtonsoft.Json.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\EntityFramework.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\EntityFramework.SqlServer.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AspNet.Identity.Core.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AspNet.Identity.Owin.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Host.SystemWeb.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.Facebook.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.Cookies.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.OAuth.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.Google.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.Twitter.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\obj\Debug\Enterprise.csprojResolveAssemblyReference.cache
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\obj\Debug\Enterprise.dll
+c:\users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\obj\Debug\Enterprise.pdb
+C:\Users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\obj\Debug\Enterprise.Migrations.InitialCreate.resources
+C:\Users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\obj\Debug\Enterprise.csproj.GenerateResource.Cache
+C:\Users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\obj\Debug\Enterprise.Migrations.AddFullName.resources
+C:\Users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.VisualStudio.DebuggerVisualizers.dll
+C:\Users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.VisualStudio.DebuggerVisualizers.xml
+C:\Users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\ru\Microsoft.VisualStudio.DebuggerVisualizers.resources.dll
+C:\Users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\obj\Debug\Enterprise.Migrations.BirthDate.resources
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\ApplicationInsights.config
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\csc.exe
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\vbc.exe
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\VBCSCompiler.exe
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Enterprise.dll.config
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Enterprise.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Enterprise.pdb
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Antlr3.Runtime.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\EntityFramework.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\EntityFramework.SqlServer.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AI.Web.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.ApplicationInsights.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.VisualStudio.DebuggerVisualizers.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Newtonsoft.Json.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Owin.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.Helpers.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.Mvc.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.Optimization.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.Razor.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.WebPages.Deployment.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.WebPages.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.WebPages.Razor.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\WebGrease.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AI.Web.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.ApplicationInsights.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.VisualStudio.DebuggerVisualizers.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.Helpers.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.Mvc.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.Optimization.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.Razor.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.WebPages.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.WebPages.Deployment.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.WebPages.Razor.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Antlr3.Runtime.pdb
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Newtonsoft.Json.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\EntityFramework.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\EntityFramework.SqlServer.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\ru\Microsoft.VisualStudio.DebuggerVisualizers.resources.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.csprojResolveAssemblyReference.cache
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.Migrations.InitialCreate.resources
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.Migrations.AddFullName.resources
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.Migrations.BirthDate.resources
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.csproj.GenerateResource.Cache
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.pdb

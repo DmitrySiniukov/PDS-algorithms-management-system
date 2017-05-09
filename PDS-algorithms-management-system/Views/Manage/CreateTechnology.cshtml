@@ -1,0 +1,45 @@
+﻿@using Enterprise.Infrastructure
+@using Enterprise.Models
+@model Technology
+@{
+    ViewBag.Title = "Додавання завдання до технологічної карти";
+    var list = new List<SelectListItem> { new SelectListItem { Value = "", Text = "", Selected = true } };
+    var tasks = Repository.GetItems(new Task()).Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name });
+    list.AddRange(tasks);
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@using (Html.BeginForm("CreateTechnology", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.ProductId)
+    <div class="form-group">
+        @Html.LabelFor(m => m.TaskId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.TaskId, list, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Duration, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Duration, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Зберегти" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
