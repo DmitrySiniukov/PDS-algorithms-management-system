@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Web.Mvc;
+using Enterprise.Infrastructure;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -84,12 +85,32 @@ namespace Enterprise.Models
         [DataType(DataType.Duration, ErrorMessage = "Значення кроку на графіку - дійсне додатнє число.")]
         public double Step { get; set; }
 
+        [Display(Name = "Мітка осі X *")]
+        [Required(ErrorMessage = "Мітка осі X - обов'язкове поле.")]
+        public string XLabel { get; set; }
+
+        [Display(Name = "Мітка осі Y *")]
+        [Required(ErrorMessage = "Мітка осі Y - обов'язкове поле.")]
+        public string YLabel { get; set; }
+
+        [Display(Name = "Максимальне значення *")]
+        [Required(ErrorMessage = "Введіть максимальне значення аналітики")]
+        [DataType(DataType.Duration, ErrorMessage = "Максимальне значення аналітики - дійсне додатнє число.")]
+        public double MaxValue { get; set; }
+
         [Display(Name = "Опис")]
         public string Description { get; set; }
 
         public string UserId { get; set; }
 
         public DateTime DateAdd { get; set; }
+    }
+
+    public class AlgorithmAnalysisModel
+    {
+        public Algorithm Algorithm { get; set; }
+
+        public List<AlgorithmAnalytic> AlgorithmAnalytics { get; set; }
     }
 
     #region Old

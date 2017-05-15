@@ -65,6 +65,11 @@ namespace Enterprise.Infrastructure
                         }
                         machineSchedules.Add(machineSchedule);
                     }
+                    // Add missing (empty) machine schedules
+                    while (machineId < MachineNumber)
+                    {
+                        machineSchedules.Add(new MachineSchedule(new Machine(++machineId, "")));
+                    }
                     _solution = new Schedule(machineSchedules);
                 }
                 return _solution;

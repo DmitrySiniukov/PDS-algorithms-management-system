@@ -1,0 +1,35 @@
+﻿@using Enterprise.Infrastructure
+@model Enterprise.Models.AlgorithmAnalysisModel
+@{
+    ViewBag.Title = "Аналіз алгоритма";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Інформація про алгоритм</h2>
+<hr />
+<div>
+    <h2 style="margin-top: 30px;">Аналіз алгоритма</h2>
+    <hr />
+    <div class="form-group">
+        <div style="margin-bottom: 30px;">
+
+            @foreach (var analytic in Model.AlgorithmAnalytics)
+            {
+                <center style="margin-bottom: 15px;">
+                    <h4>@analytic.Analytic.Name</h4>
+                    @Html.Chart(string.Format("analytic{0}", analytic.Analytic.Id), analytic.GraphPoints, analytic.Analytic.XLabel, analytic.Analytic.YLabel, analytic.Analytic.MaxValue)
+                </center>
+            }
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            barChart();
+        });
+    </script>
+}

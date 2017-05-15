@@ -143,7 +143,7 @@ namespace Enterprise.Infrastructure
                 connection.Open();
                 using (var cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"SELECT Id, Name, FunctionCode, Step, Description, UserId, DateAdd FROM Analytics";
+                    cmd.CommandText = @"SELECT Id, Name, FunctionCode, Step, Description, UserId, DateAdd, XLabel, YLabel, MaxValue FROM Analytics";
                     cmd.Connection = connection;
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -157,7 +157,10 @@ namespace Enterprise.Infrastructure
                                 Step = reader.GetFieldValue<double>(3),
                                 Description = reader.GetFieldValue<string>(4),
                                 UserId = reader.GetFieldValue<string>(5),
-                                DateAdd = reader.GetFieldValue<DateTime>(6)
+                                DateAdd = reader.GetFieldValue<DateTime>(6),
+                                XLabel = reader.GetFieldValue<string>(7),
+                                YLabel = reader.GetFieldValue<string>(8),
+                                MaxValue = reader.GetFieldValue<double>(9)
                             });
                         }
                     }

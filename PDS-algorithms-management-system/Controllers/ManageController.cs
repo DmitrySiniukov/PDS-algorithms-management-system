@@ -68,10 +68,10 @@ namespace Enterprise.Controllers
 		{
             //const int n = 15;
             //const int m = 3;
-            //const int iterNum = 100;
+            //const int iterNum = 10;
             //const int schedulesNum = 100;
 
-            //for (var i = 33; i < schedulesNum; i++)
+            //for (var i = 0; i < schedulesNum; i++)
             //{
             //    var currentScale = (i + 1) * 1.0;
             //    var inputs = Modeler.CalculateOptimalityCriterionEfficiency(n, m, iterNum, currentScale,
@@ -89,8 +89,6 @@ namespace Enterprise.Controllers
             //        });
             //    }
             //}
-
-
 
             ViewBag.StatusMessage =
 			message == ManageMessageId.ChangePasswordSuccess ? "Пароль успішно змінено."
@@ -209,7 +207,38 @@ namespace Enterprise.Controllers
             return View(algorithm);
 	    }
 
-        #region Products
+	    public ActionResult AlgorithmAnalysis(int id)
+	    {
+            var algorithm = Repository.GetAlgorithm(id);
+            var currentUserId = User.Identity.GetUserId();
+            if (algorithm == null || string.Compare(currentUserId, algorithm.UserId, StringComparison.InvariantCultureIgnoreCase) != 0)
+            {
+                return RedirectToAction("NotFound", "Home");
+            }
+
+	        var algorithmMethod = ServiceMethods.GetAlgorithmMethod(algorithm.Code);
+	        var analytics = Repository.GetAnalytics();
+	        var inputs = Repository.GetInputs();
+	        var model = new AlgorithmAnalysisModel
+	        {
+	            Algorithm = algorithm,
+	            AlgorithmAnalytics = new List<AlgorithmAnalytic>()
+	        };
+
+            foreach (var analytic in analytics)
+	        {
+	            List<AlgorithmInput> analyticInputs;
+	            if (!inputs.TryGetValue(analytic.Id, out analyticInputs))
+	            {
+	                continue;
+	            }
+                model.AlgorithmAnalytics.Add(new AlgorithmAnalytic(analytic, ServiceMethods.BuildGraph(analytic, algorithmMethod, analyticInputs)));
+            }
+
+	        return View(model);
+	    }
+
+	    #region Products
 
         //[Authorize(Roles = "Technologist")]
         //[HttpGet]

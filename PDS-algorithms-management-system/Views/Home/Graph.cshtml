@@ -1,0 +1,22 @@
+﻿@using Enterprise.Infrastructure
+@model Enterprise.Models.TwoDimensionalData
+@{
+    ViewBag.Title = "Graph";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Graph</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.Chart("sampleChart", Model.Data, "Year",
+    "Hits in Thousands");
+}
+@section Scripts
+{
+    <script type="text/javascript">
+    $(function () {
+        barChart();
+    });
+    </script>
+}

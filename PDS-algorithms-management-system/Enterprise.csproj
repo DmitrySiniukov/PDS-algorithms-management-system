@@ -203,6 +203,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\AlgorithmAnalytic.cs" />
     <Compile Include="Infrastructure\AlgorithmInput.cs" />
     <Compile Include="Infrastructure\Repository.cs" />
     <Compile Include="Infrastructure\Extentions.cs" />
@@ -712,6 +713,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-2.0.0.debug.js" />
+    <Content Include="Scripts\knockout-2.0.0.js" />
+    <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -773,6 +777,8 @@
     <Content Include="Views\Manage\Compatibilities.cshtml" />
     <Content Include="Views\Manage\Algorithms.cshtml" />
     <Content Include="Views\Manage\EditAlgorithm.cshtml" />
+    <Content Include="Views\Manage\AlgorithmAnalysis.cshtml" />
+    <Content Include="Views\Home\Graph.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201604062110246_InitialCreate.resx">

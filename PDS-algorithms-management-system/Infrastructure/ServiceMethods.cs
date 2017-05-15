@@ -178,12 +178,13 @@ namespace Enterprise.Infrastructure
         public static MethodInfo GetAnalyticFunction(string code)
         {
             var entireCode = string.Format(@"
+            using Enterprise.Infrastructure;
+            using OptimalSchedulingLogic;
             using System;
             using System.Collections.Generic;
             using System.Linq;
             using System.Text;
             using System.Threading.Tasks;
-            using Enterprise.Infrastructure;
             namespace TempAssembly
             {{
 	            class TempProgram
@@ -204,7 +205,8 @@ namespace Enterprise.Infrastructure
             parameters.ReferencedAssemblies.Add("System.Data.DataSetExtensions.dll");
             parameters.ReferencedAssemblies.Add("System.Xml.dll");
             parameters.ReferencedAssemblies.Add("System.Xml.Linq.dll");
-            parameters.ReferencedAssemblies.Add((typeof (ServiceMethods)).Assembly.CodeBase);
+            parameters.ReferencedAssemblies.Add(typeof (ServiceMethods).Assembly.Location);
+            parameters.ReferencedAssemblies.Add(typeof (Task).Assembly.Location);
             var results = provider.CompileAssemblyFromSource(parameters, entireCode);
             if (results.Errors.HasErrors)
             {
@@ -230,7 +232,7 @@ namespace Enterprise.Infrastructure
             return (double) function.Invoke(null, new object[] {algorithm, input});
         }
 
-        public static List<GraphPoint> BuildGraph(Analytic analytic, MethodInfo algorithmMethod,
+        public static List<double[]> BuildGraph(Analytic analytic, MethodInfo algorithmMethod,
             List<AlgorithmInput> inputs)
         {
             var analFunction = GetAnalyticFunction(analytic.FunctionCode);
@@ -239,7 +241,7 @@ namespace Enterprise.Infrastructure
             var xCurrent = inputsCopy[0].Characteristic;
             var ind = 0;
 
-            var result = new List<GraphPoint>();
+            var result = new List<double[]>();
             var exit = false;
             while (!exit)
             {
@@ -258,19 +260,11 @@ namespace Enterprise.Infrastructure
                 }
 
                 var y = (ind == indBefore ? 0d : ySum/(ind - indBefore));
-                result.Add(new GraphPoint {X = xCurrent, Y = y});
+                result.Add(new[] {xCurrent, y});
                 xCurrent = xNext;
             }
             
             return result;
-        }
-
-
-        public class GraphPoint
-        {
-            public double X { get; set; }
-
-            public double Y { get; set; }
         }
     }
 }

@@ -87,10 +87,6 @@ C:\Users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterpr
 C:\Users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\Microsoft.VisualStudio.DebuggerVisualizers.xml
 C:\Users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\bin\ru\Microsoft.VisualStudio.DebuggerVisualizers.resources.dll
 C:\Users\d1mas\onedrive\documents\visual studio 2015\Projects\Enterprise\Enterprise\obj\Debug\Enterprise.Migrations.BirthDate.resources
-C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.Migrations.InitialCreate.resources
-C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.Migrations.AddFullName.resources
-C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.Migrations.BirthDate.resources
-C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.csproj.GenerateResource.Cache
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\ApplicationInsights.config
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\csc.exe
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -134,6 +130,7 @@ C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\ModelingApplication.exe
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Newtonsoft.Json.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\OptimalSchedulingLogic.dll
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Owin.dll
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Scheduling.dll
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.Helpers.dll
@@ -144,10 +141,10 @@ C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.WebPages.dll
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\System.Web.WebPages.Razor.dll
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\WebGrease.dll
-C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\OptimalSchedulingLogic.dll
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\MathNet.Numerics.dll
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Combinatorics.dll
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\ModelingApplication.pdb
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\OptimalSchedulingLogic.pdb
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Scheduling.pdb
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AI.DependencyCollector.xml
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.AI.ServerTelemetryChannel.xml
@@ -179,11 +176,14 @@ C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\OptimalSchedulingLogic.pdb
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\MathNet.Numerics.xml
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Combinatorics.pdb
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\Combinatorics.xml
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\bin\ru\Microsoft.VisualStudio.DebuggerVisualizers.resources.dll
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.csprojResolveAssemblyReference.cache
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.Migrations.InitialCreate.resources
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.Migrations.AddFullName.resources
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.Migrations.BirthDate.resources
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.csproj.GenerateResource.Cache
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.dll
 C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\PDS-algorithms-management-system\obj\Debug\Enterprise.pdb
