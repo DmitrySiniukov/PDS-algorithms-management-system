@@ -1,0 +1,4 @@
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\Scheduling\bin\Debug\Scheduling.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\Scheduling\bin\Debug\Scheduling.pdb
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\Scheduling\obj\Debug\Scheduling.dll
+C:\Users\d1mas\Desktop\Thesis\Software product\PDS-algorithms-management-system\Scheduling\obj\Debug\Scheduling.pdb

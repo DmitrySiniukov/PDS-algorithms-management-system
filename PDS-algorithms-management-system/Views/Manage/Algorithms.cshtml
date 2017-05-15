@@ -43,7 +43,7 @@
                 <tr>
                     <td class="text-center" style="padding: 0; vertical-align: middle;">@(alg.Published ? 1 : 0)</td>
                     <td class="text-center" style="padding: 0; vertical-align: middle;">
-                        @alg.Name
+                        @Html.ActionLink(alg.Name, "EditAlgorithm", "Manage", routeValues: new { id = alg.Id }, htmlAttributes: new { title = "Редагування алгоритму" })
                     </td>
                     <td style="padding: 0;">
                         @alg.Description

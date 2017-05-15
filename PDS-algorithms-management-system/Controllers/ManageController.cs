@@ -11,6 +11,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Enterprise.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.CodeDom.Compiler;
+using ModelingApplication;
+using Scheduling;
 
 namespace Enterprise.Controllers
 {
@@ -63,7 +66,31 @@ namespace Enterprise.Controllers
 		[HttpGet]
 		public async Task<ActionResult> Index(ManageMessageId? message)
 		{
-			ViewBag.StatusMessage =
+            const int n = 15;
+            const int m = 3;
+            const int iterNum = 100;
+            const int schedulesNum = 100;
+
+            for (var i = 33; i < schedulesNum; i++)
+            {
+                var currentScale = (i + 1) * 1.0;
+                var inputs = Modeler.CalculateOptimalityCriterionEfficiency(n, m, iterNum, currentScale,
+                    () => Modeler.NextGamma(5.0, 5.0), () => Modeler.NextExponential(currentScale));
+
+                foreach (var input in inputs)
+                {
+                    Repository.InsertInput(new Input
+                    {
+                        AnalyticId = input.AnalyticId,
+                        Characteristic = input.Characteristic,
+                        MachineNumber = input.MachineNumber,
+                        Solution = input.Solution,
+                        Tasks = input.Tasks
+                    });
+                }
+            }
+
+            ViewBag.StatusMessage =
 			message == ManageMessageId.ChangePasswordSuccess ? "Пароль успішно змінено."
 			: message == ManageMessageId.SetPasswordSuccess ? "Пароль успішно збережено."
 			: message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
@@ -130,319 +157,369 @@ namespace Enterprise.Controllers
 	        return View(availableAlgorithms);
 	    }
 
-	    #region Products
+        [HttpGet]
+        public ActionResult EditAlgorithm(int id)
+        {
+            var algorithm = Repository.GetAlgorithm(id);
+            var currentUserId = User.Identity.GetUserId();
+            if (algorithm == null || string.Compare(currentUserId, algorithm.UserId, StringComparison.InvariantCultureIgnoreCase) != 0)
+            {
+                return RedirectToAction("NotFound", "Home");
+            }
 
-		//[Authorize(Roles = "Technologist")]
-		//[HttpGet]
-		//public ActionResult EditProducts(string message = null)
-		//{
-		//	return editItems(new Product(), message);
-		//}
+            return View(algorithm);
+        }
 
-		//[Authorize(Roles = "Technologist")]
-		//[HttpPost]
-		//public ActionResult EditProducts(IEnumerable<Product> products)
-		//{
-		//	return editItems(new Product(), products);
-		//}
+        [HttpPost]
+	    public ActionResult EditAlgorithm(Algorithm algorithm)
+	    {
+            if (ModelState.IsValid)
+            {
+                var result = true;
+                try
+                {
+                    var tasks = new List<OptimalSchedulingLogic.Task>
+                    {
+                        new OptimalSchedulingLogic.Task(1, "", 5, new DateTime(2017, 5, 9, 12, 0, 0)),
+                        new OptimalSchedulingLogic.Task(2, "", 7, new DateTime(2017, 5, 9, 12, 2, 0)),
+                        new OptimalSchedulingLogic.Task(3, "", 3, new DateTime(2017, 5, 9, 12, 2, 0)),
+                        new OptimalSchedulingLogic.Task(4, "", 10, new DateTime(2017, 5, 9, 12, 4, 0)),
+                        new OptimalSchedulingLogic.Task(5, "", 8, new DateTime(2017, 5, 9, 12, 5, 0)),
+                        new OptimalSchedulingLogic.Task(6, "", 5, new DateTime(2017, 5, 9, 12, 5, 0)),
+                        new OptimalSchedulingLogic.Task(7, "", 7, new DateTime(2017, 5, 9, 12, 6, 0))
+                    };
+                    var methodInfo = ServiceMethods.GetAlgorithmMethod(algorithm.Code);
+                    var schedule = ServiceMethods.BuildSchedule(methodInfo, 3, tasks);
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("Code", e.Message);
+                    result = false;
+                }
 
-		//[Authorize(Roles = "Technologist")]
-		//public ActionResult DeleteProduct(int id)
-		//{
-		//	return deleteItem(new Product(), id);
-		//}
+                if (result)
+                {
+                    Repository.UpdateAlgorithm(algorithm);
+                    return RedirectToAction("Algorithms");
+                }
+            }
 
-		//[Authorize(Roles = "Technologist")]
-		//[HttpGet]
-		//public ActionResult CreateProduct()
-		//{
-		//	return createItem(new Product());
-		//}
+            return View(algorithm);
+	    }
 
-		//[Authorize(Roles = "Technologist")]
-		//[HttpPost]
-		//public ActionResult CreateProduct(Product product)
-		//{
-		//	return createItemPost(product);
-		//}
+        #region Products
 
-		#endregion
+        //[Authorize(Roles = "Technologist")]
+        //[HttpGet]
+        //public ActionResult EditProducts(string message = null)
+        //{
+        //	return editItems(new Product(), message);
+        //}
 
-		#region Tasks
+        //[Authorize(Roles = "Technologist")]
+        //[HttpPost]
+        //public ActionResult EditProducts(IEnumerable<Product> products)
+        //{
+        //	return editItems(new Product(), products);
+        //}
 
-		//[Authorize(Roles = "Technologist")]
-		//[HttpGet]
-		//public ActionResult EditTasks(string message = null)
-		//{
-		//	return editItems(new Models.Task(), message);
-		//}
+        //[Authorize(Roles = "Technologist")]
+        //public ActionResult DeleteProduct(int id)
+        //{
+        //	return deleteItem(new Product(), id);
+        //}
 
-		//[Authorize(Roles = "Technologist")]
-		//[HttpPost]
-		//public ActionResult EditTasks(IEnumerable<Models.Task> tasks)
-		//{
-		//	return editItems(new Models.Task(), tasks);
-		//}
+        //[Authorize(Roles = "Technologist")]
+        //[HttpGet]
+        //public ActionResult CreateProduct()
+        //{
+        //	return createItem(new Product());
+        //}
 
-		//[Authorize(Roles = "Technologist")]
-		//public ActionResult DeleteTask(int id)
-		//{
-		//	return deleteItem(new Models.Task(), id);
-		//}
-
-		//[Authorize(Roles = "Technologist")]
-		//[HttpGet]
-		//public ActionResult CreateTask()
-		//{
-		//	return createItem(new Models.Task());
-		//}
-
-		//[Authorize(Roles = "Technologist")]
-		//[HttpPost]
-		//public ActionResult CreateTask(Models.Task task)
-		//{
-		//	return createItemPost(task);
-		//}
-
-		#endregion
-		
-		#region Machines
-
-		//[Authorize(Roles = "Engineer")]
-		//[HttpGet]
-		//public ActionResult EditMachines(string message = null)
-		//{
-		//	return editItems(new Machine(), message);
-		//}
-
-		//[Authorize(Roles = "Engineer")]
-		//[HttpPost]
-		//public ActionResult EditMachines(IEnumerable<Machine> machines)
-		//{
-		//	return editItems(new Machine(), machines);
-		//}
-
-		//[Authorize(Roles = "Engineer")]
-		//public ActionResult DeleteMachine(int id)
-		//{
-		//	return deleteItem(new Machine(), id);
-		//}
-
-		//[Authorize(Roles = "Engineer")]
-		//[HttpGet]
-		//public ActionResult CreateMachine()
-		//{
-		//	return createItem(new Machine());
-		//}
-
-		//[Authorize(Roles = "Engineer")]
-		//[HttpPost]
-		//public ActionResult CreateMachine(Machine machine)
-		//{
-		//	return createItemPost(machine);
-		//}
-
-		#endregion
-
-		#region Departments
-
-		//[Authorize(Roles = "Engineer")]
-		//[HttpGet]
-		//public ActionResult EditDepartments(string message = null)
-		//{
-		//	return editItems(new Department(), message);
-		//}
-
-		//[Authorize(Roles = "Engineer")]
-		//[HttpPost]
-		//public ActionResult EditDepartments(IEnumerable<Department> departments)
-		//{
-		//	return editItems(new Department(), departments);
-		//}
-
-		//[Authorize(Roles = "Engineer")]
-		//public ActionResult DeleteDepartment(int id)
-		//{
-		//	return deleteItem(new Department(), id);
-		//}
-
-		//[Authorize(Roles = "Engineer")]
-		//[HttpGet]
-		//public ActionResult CreateDepartment()
-		//{
-		//	return createItem(new Department());
-		//}
-
-		//[Authorize(Roles = "Engineer")]
-		//[HttpPost]
-		//public ActionResult CreateDepartment(Department department)
-		//{
-		//	return createItemPost(department);
-		//}
-
-		#endregion
-
-		//[Authorize(Roles = "Engineer,Technologist")]
-		//public ActionResult Schedule()
-	    //{
-		//    var machines = Repository.GetItems(new Machine());
-		//    var scheduleTasks = Repository.GetScheduleTasks();
-		//    var schedule = Schedule<MachineSchedule>.BuildSchedule(scheduleTasks, machines.Cast<Machine>());
-		//	  return View(schedule);
-	    //}
-
-		#region Technologies
-
-		//[Authorize(Roles = "Technologist")]
-		//[HttpGet]
-		//public ActionResult EditTechnologies(int id, string message = null)
-		//{
-		//	if (!string.IsNullOrEmpty(message))
-		//	{
-		//		ViewBag.StatusMessage = message;
-		//	}
-
-		//	var list = Repository.GetTechnologies(id);
-		//	return View(list);
-		//}
-
-		//[Authorize(Roles = "Technologist")]
-		//[HttpPost]
-		//public ActionResult EditTechnologies(Technologies list)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//	    var error = false;
-		//	    for (var i = 0; i < list.Count; i++)
-		//	    {
-		//	        if (!(list[i].Duration > 0))
-		//	        {
-  //                      ModelState.AddModelError(string.Format("[{0}].Duration", i), "Тривалість повинна бути додатньою.");
-		//	            error = true;
-		//	        }
-		//	    }
-		//	    if (error)
-		//	    {
-  //                  return View(list);
-  //              }
-
-		//	    Repository.UpdateTechnologies(list);
-		//		return RedirectToAction("EditProducts", "Manage", new { message = "Технологічну карту успішно збережено" });
-		//	}
-		//    list.ProductName = Request.Form.GetValues(0).First();
-		//	return View(list);
-		//}
-
-		//[Authorize(Roles = "Technologist")]
-		//[HttpGet]
-		//public ActionResult CreateTechnology(int id)
-		//{
-		//	var technology = new Technology {ProductId = id};
-		//	return View(technology);
-		//}
-
-		//[Authorize(Roles = "Technologist")]
-		//[HttpPost]
-		//public ActionResult CreateTechnology(Technology technology)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//	    if (!(technology.Duration > 0))
-  //              {
-  //                  ModelState.AddModelError("Duration", "Тривалість повинна бути додатньою.");
-  //                  return View(technology);
-  //              }
-		//	    Repository.CreateTechnology(technology);
-		//		return RedirectToAction("EditTechnologies", "Manage", new { id = technology.ProductId, message = "Операцію успішно додано до технологічної карти." });
-		//	}
-		//	return View(technology);
-		//}
+        //[Authorize(Roles = "Technologist")]
+        //[HttpPost]
+        //public ActionResult CreateProduct(Product product)
+        //{
+        //	return createItemPost(product);
+        //}
 
         #endregion
-        
-     //   [Authorize(Roles = "Engineer")]
-     //   public ActionResult Compatibilities(int id)
-     //   {
-     //       var department = Repository.GetDepartment(id);
-     //       if (department == null)
-     //       {
-     //           return RedirectToAction("NotFound", "Home");
-     //       }
 
-     //       var model = new Compatibilities(Repository.GetCompatibilities(id)) {Department = department};
+        #region Tasks
 
-     //       return View(model);
-	    //}
+        //[Authorize(Roles = "Technologist")]
+        //[HttpGet]
+        //public ActionResult EditTasks(string message = null)
+        //{
+        //	return editItems(new Models.Task(), message);
+        //}
 
-     //   [Authorize(Roles = "Engineer")]
-     //   public ActionResult ChangeCompatibility(int dp, int task, bool value)
-     //   {
-     //       Repository.ChangeCompatibility(dp, task, value);
-     //       return RedirectToAction("Compatibilities", "Manage", new {id = dp});
-     //   }
+        //[Authorize(Roles = "Technologist")]
+        //[HttpPost]
+        //public ActionResult EditTasks(IEnumerable<Models.Task> tasks)
+        //{
+        //	return editItems(new Models.Task(), tasks);
+        //}
+
+        //[Authorize(Roles = "Technologist")]
+        //public ActionResult DeleteTask(int id)
+        //{
+        //	return deleteItem(new Models.Task(), id);
+        //}
+
+        //[Authorize(Roles = "Technologist")]
+        //[HttpGet]
+        //public ActionResult CreateTask()
+        //{
+        //	return createItem(new Models.Task());
+        //}
+
+        //[Authorize(Roles = "Technologist")]
+        //[HttpPost]
+        //public ActionResult CreateTask(Models.Task task)
+        //{
+        //	return createItemPost(task);
+        //}
+
+        #endregion
+
+        #region Machines
+
+        //[Authorize(Roles = "Engineer")]
+        //[HttpGet]
+        //public ActionResult EditMachines(string message = null)
+        //{
+        //	return editItems(new Machine(), message);
+        //}
+
+        //[Authorize(Roles = "Engineer")]
+        //[HttpPost]
+        //public ActionResult EditMachines(IEnumerable<Machine> machines)
+        //{
+        //	return editItems(new Machine(), machines);
+        //}
+
+        //[Authorize(Roles = "Engineer")]
+        //public ActionResult DeleteMachine(int id)
+        //{
+        //	return deleteItem(new Machine(), id);
+        //}
+
+        //[Authorize(Roles = "Engineer")]
+        //[HttpGet]
+        //public ActionResult CreateMachine()
+        //{
+        //	return createItem(new Machine());
+        //}
+
+        //[Authorize(Roles = "Engineer")]
+        //[HttpPost]
+        //public ActionResult CreateMachine(Machine machine)
+        //{
+        //	return createItemPost(machine);
+        //}
+
+        #endregion
+
+        #region Departments
+
+        //[Authorize(Roles = "Engineer")]
+        //[HttpGet]
+        //public ActionResult EditDepartments(string message = null)
+        //{
+        //	return editItems(new Department(), message);
+        //}
+
+        //[Authorize(Roles = "Engineer")]
+        //[HttpPost]
+        //public ActionResult EditDepartments(IEnumerable<Department> departments)
+        //{
+        //	return editItems(new Department(), departments);
+        //}
+
+        //[Authorize(Roles = "Engineer")]
+        //public ActionResult DeleteDepartment(int id)
+        //{
+        //	return deleteItem(new Department(), id);
+        //}
+
+        //[Authorize(Roles = "Engineer")]
+        //[HttpGet]
+        //public ActionResult CreateDepartment()
+        //{
+        //	return createItem(new Department());
+        //}
+
+        //[Authorize(Roles = "Engineer")]
+        //[HttpPost]
+        //public ActionResult CreateDepartment(Department department)
+        //{
+        //	return createItemPost(department);
+        //}
+
+        #endregion
+
+        //[Authorize(Roles = "Engineer,Technologist")]
+        //public ActionResult Schedule()
+        //{
+        //    var machines = Repository.GetItems(new Machine());
+        //    var scheduleTasks = Repository.GetScheduleTasks();
+        //    var schedule = Schedule<MachineSchedule>.BuildSchedule(scheduleTasks, machines.Cast<Machine>());
+        //	  return View(schedule);
+        //}
+
+        #region Technologies
+
+        //[Authorize(Roles = "Technologist")]
+        //[HttpGet]
+        //public ActionResult EditTechnologies(int id, string message = null)
+        //{
+        //	if (!string.IsNullOrEmpty(message))
+        //	{
+        //		ViewBag.StatusMessage = message;
+        //	}
+
+        //	var list = Repository.GetTechnologies(id);
+        //	return View(list);
+        //}
+
+        //[Authorize(Roles = "Technologist")]
+        //[HttpPost]
+        //public ActionResult EditTechnologies(Technologies list)
+        //{
+        //	if (ModelState.IsValid)
+        //	{
+        //	    var error = false;
+        //	    for (var i = 0; i < list.Count; i++)
+        //	    {
+        //	        if (!(list[i].Duration > 0))
+        //	        {
+        //                      ModelState.AddModelError(string.Format("[{0}].Duration", i), "Тривалість повинна бути додатньою.");
+        //	            error = true;
+        //	        }
+        //	    }
+        //	    if (error)
+        //	    {
+        //                  return View(list);
+        //              }
+
+        //	    Repository.UpdateTechnologies(list);
+        //		return RedirectToAction("EditProducts", "Manage", new { message = "Технологічну карту успішно збережено" });
+        //	}
+        //    list.ProductName = Request.Form.GetValues(0).First();
+        //	return View(list);
+        //}
+
+        //[Authorize(Roles = "Technologist")]
+        //[HttpGet]
+        //public ActionResult CreateTechnology(int id)
+        //{
+        //	var technology = new Technology {ProductId = id};
+        //	return View(technology);
+        //}
+
+        //[Authorize(Roles = "Technologist")]
+        //[HttpPost]
+        //public ActionResult CreateTechnology(Technology technology)
+        //{
+        //	if (ModelState.IsValid)
+        //	{
+        //	    if (!(technology.Duration > 0))
+        //              {
+        //                  ModelState.AddModelError("Duration", "Тривалість повинна бути додатньою.");
+        //                  return View(technology);
+        //              }
+        //	    Repository.CreateTechnology(technology);
+        //		return RedirectToAction("EditTechnologies", "Manage", new { id = technology.ProductId, message = "Операцію успішно додано до технологічної карти." });
+        //	}
+        //	return View(technology);
+        //}
+
+        #endregion
+
+        //   [Authorize(Roles = "Engineer")]
+        //   public ActionResult Compatibilities(int id)
+        //   {
+        //       var department = Repository.GetDepartment(id);
+        //       if (department == null)
+        //       {
+        //           return RedirectToAction("NotFound", "Home");
+        //       }
+
+        //       var model = new Compatibilities(Repository.GetCompatibilities(id)) {Department = department};
+
+        //       return View(model);
+        //}
+
+        //   [Authorize(Roles = "Engineer")]
+        //   public ActionResult ChangeCompatibility(int dp, int task, bool value)
+        //   {
+        //       Repository.ChangeCompatibility(dp, task, value);
+        //       return RedirectToAction("Compatibilities", "Manage", new {id = dp});
+        //   }
 
         #region Common actions
 
-  //      private ActionResult editItems(Item instance, string message = null)
-		//{
-		//	ViewBag.StatusMessage = message;
+        //      private ActionResult editItems(Item instance, string message = null)
+        //{
+        //	ViewBag.StatusMessage = message;
 
-		//	ViewBag.Instance = instance;
-		//	var list = Repository.GetItems(instance);
+        //	ViewBag.Instance = instance;
+        //	var list = Repository.GetItems(instance);
 
-		//	return View("EditItems", list);
-		//}
+        //	return View("EditItems", list);
+        //}
 
-		//private ActionResult editItems(Item instance, IEnumerable<Item> items)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//		Repository.UpdateItems(items);
-		//		return RedirectToAction("Index", new {message = ManageMessageId.ItemsEditedSuccess});
-		//	}
+        //private ActionResult editItems(Item instance, IEnumerable<Item> items)
+        //{
+        //	if (ModelState.IsValid)
+        //	{
+        //		Repository.UpdateItems(items);
+        //		return RedirectToAction("Index", new {message = ManageMessageId.ItemsEditedSuccess});
+        //	}
 
-		//	ViewBag.Instance = instance;
-		//	return View("EditItems", items);
-		//}
-		
-		//private ActionResult deleteItem(Item instance, int id)
-		//{
-		//	var message = string.Empty;
-		//	try
-		//	{
-		//		Repository.DeleteItem(id, instance.InheritorName);
-		//		message = string.Format("{0} було успішно видалено.", instance.InheritorNameUrk);
-		//	}
-		//	catch (Exception e)
-		//	{
-		//		message = string.Format("Є дані, що писилаються на цей запис. {0} не було видалено.", instance.InheritorNameUrk);
-		//	}
-		//	return RedirectToAction(string.Format("Edit{0}s", instance.InheritorName), new { message = message });
-		//}
-		
-		//private ActionResult createItem(Item instance)
-		//{
-		//	return View("CreateItem", instance);
-		//}
+        //	ViewBag.Instance = instance;
+        //	return View("EditItems", items);
+        //}
 
-		//private ActionResult createItemPost(Item instance)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//		Repository.CreateItem(instance, User.Identity.GetUserId());
-		//		return RedirectToAction(string.Format("Edit{0}s", instance.InheritorName),
-		//			new { message = string.Format("{0} успішно збережено.", instance.InheritorNameUrk) });
-		//	}
-		//	return View("CreateItem", instance);
-		//}
+        //private ActionResult deleteItem(Item instance, int id)
+        //{
+        //	var message = string.Empty;
+        //	try
+        //	{
+        //		Repository.DeleteItem(id, instance.InheritorName);
+        //		message = string.Format("{0} було успішно видалено.", instance.InheritorNameUrk);
+        //	}
+        //	catch (Exception e)
+        //	{
+        //		message = string.Format("Є дані, що писилаються на цей запис. {0} не було видалено.", instance.InheritorNameUrk);
+        //	}
+        //	return RedirectToAction(string.Format("Edit{0}s", instance.InheritorName), new { message = message });
+        //}
 
-		#endregion
+        //private ActionResult createItem(Item instance)
+        //{
+        //	return View("CreateItem", instance);
+        //}
 
-		#region Third-party tools
+        //private ActionResult createItemPost(Item instance)
+        //{
+        //	if (ModelState.IsValid)
+        //	{
+        //		Repository.CreateItem(instance, User.Identity.GetUserId());
+        //		return RedirectToAction(string.Format("Edit{0}s", instance.InheritorName),
+        //			new { message = string.Format("{0} успішно збережено.", instance.InheritorNameUrk) });
+        //	}
+        //	return View("CreateItem", instance);
+        //}
 
-		//
-		// POST: /Manage/RemoveLogin
-		[HttpPost]
+        #endregion
+
+        #region Third-party tools
+
+        //
+        // POST: /Manage/RemoveLogin
+        [HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
 		{

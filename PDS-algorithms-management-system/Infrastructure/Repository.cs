@@ -1,21 +1,30 @@
-﻿using System;
+﻿using Enterprise.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using Enterprise.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Enterprise.Infrastructure
 {
     /// <summary>
     /// Methods for working with db
     /// </summary>
-    public class Repository
+    internal class Repository
     {
-        public static string DefaultConnection =
-            ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        private static string _defaultConnection;
+
+        internal static string DefaultConnection
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_defaultConnection))
+                {
+                    _defaultConnection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                }
+                return _defaultConnection;
+            }
+        }
+
 
         /// <summary>
         /// Get algorithms that are viewable for a user
@@ -53,6 +62,79 @@ namespace Enterprise.Infrastructure
             }
             
             return result;
+        }
+
+        public static Algorithm GetAlgorithm(int id)
+        {
+            Algorithm result = null;
+            using (var connection = new SqlConnection(DefaultConnection))
+            {
+                connection.Open();
+                using (var cmd = new SqlCommand())
+                {
+                    cmd.CommandText = @"SELECT Id, Name, Code, Description, DateAdd, UserId, Published FROM Algorithms WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("id", id);
+                    cmd.Connection = connection;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            result = new Algorithm
+                            {
+                                Id = reader.GetFieldValue<int>(0),
+                                Name = reader.GetFieldValue<string>(1),
+                                Code = reader.GetFieldValue<string>(2),
+                                Description = reader.GetFieldValue<string>(3),
+                                DateAdd = reader.GetFieldValue<DateTime>(4),
+                                UserId = reader.GetFieldValue<string>(5),
+                                Published = reader.GetFieldValue<bool>(6)
+                            };
+                        }
+                    }
+                }
+                connection.Close();
+            }
+
+            return result;
+        }
+
+        public static void UpdateAlgorithm(Algorithm algorithm)
+        {
+            using (var connection = new SqlConnection(DefaultConnection))
+            {
+                connection.Open();
+                using (var cmd = new SqlCommand())
+                {
+                    cmd.CommandText = @"UPDATE Algorithms SET Name = @name, Code = @code, Description = @description FROM Algorithms WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("id", algorithm.Id);
+                    cmd.Parameters.AddWithValue("name", algorithm.Name);
+                    cmd.Parameters.AddWithValue("code", algorithm.Code);
+                    cmd.Parameters.AddWithValue("description", algorithm.Description);
+                    cmd.Connection = connection;
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+
+        public static void InsertInput(Input input)
+        {
+            using (var connection = new SqlConnection(DefaultConnection))
+            {
+                connection.Open();
+                using (var cmd = new SqlCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Inputs (Solution, Characteristic, AnalyticId, MachineNum, Tasks) VALUES (@solution, @characteristic, @analyticId, @machineNum, @tasks)";
+                    cmd.Parameters.AddWithValue("solution", input.Solution);
+                    cmd.Parameters.AddWithValue("characteristic", input.Characteristic);
+                    cmd.Parameters.AddWithValue("analyticId", input.AnalyticId);
+                    cmd.Parameters.AddWithValue("machineNum", input.MachineNumber);
+                    cmd.Parameters.AddWithValue("tasks", input.Tasks);
+                    cmd.Connection = connection;
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
         }
 
         // public static List<IdentityRole<string, IdentityUserRole>> GetAvailableRoles()

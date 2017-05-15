@@ -2,6 +2,7 @@
 @{
 	ViewBag.Title = "Особистий кабінет";
 	Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 
 <h2>Особистий кабінет</h2>
@@ -10,8 +11,15 @@
 	<h4 style="margin-top: 30px;">Функції</h4>
 	<hr />
 	<div class="form-group">
-		<div class="col-md-offset-2" style="margin-bottom: 30px;">
-			@*@switch (roleId)
+	    <div class="col-md-offset-2" style="margin-bottom: 30px;">
+	        @if (User.IsInRole("admin"))
+            {
+            }
+            else
+            {
+                @Html.ActionLink("Алгоритми", "Algorithms", "Manage", htmlAttributes: new { @class = "btn btn-default", @style = "margin-right: 10px;" }, routeValues: null)
+            }
+	        @*@switch (roleId)
 			{
 				case "technologist":
 					@Html.ActionLink("Ведення продуктів", "EditProducts", "Manage", htmlAttributes: new { @class = "btn btn-default", @style = "margin-right: 10px;" }, routeValues: null)
@@ -24,7 +32,7 @@
 					break;
 			}
 			@Html.ActionLink("Аналіз розкладу виробництва", "Schedule", "Manage", htmlAttributes: new { @class = "btn btn-success" }, routeValues: null)*@
-		</div>
+	    </div>
 	</div>
 
 	<h4>Особисті дані</h4>

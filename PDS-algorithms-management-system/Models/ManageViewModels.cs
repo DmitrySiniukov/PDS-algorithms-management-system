@@ -37,6 +37,7 @@ namespace Enterprise.Models
 
         [Display(Name = "Вихідний код основної процедури формування розкладу *")]
         [Required(ErrorMessage = "Код алгоритма - обов'язкове поле.")]
+        [AllowHtml]
         public string Code { get; set; }
 
         [Display(Name = "Опис")]
@@ -48,6 +49,21 @@ namespace Enterprise.Models
         public string UserId { get; set; }
 
         public DateTime DateAdd { get; set; }
+    }
+
+    public class Input
+    {
+        public int Id { get; set; }
+
+        public double Characteristic { get; set; }
+
+        public int AnalyticId { get; set; }
+
+        public int MachineNumber { get; set; }
+
+        public string Tasks { get; set; }
+
+        public string Solution { get; set; }
     }
 
     #region Old

@@ -203,10 +203,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\AlgorithmInput.cs" />
     <Compile Include="Infrastructure\Repository.cs" />
     <Compile Include="Infrastructure\Extentions.cs" />
-    <Compile Include="Models\Schedule.cs" />
-    <Compile Include="Infrastructure\ScheduleTask.cs" />
+    <Compile Include="Infrastructure\ServiceMethods.cs" />
     <Compile Include="Migrations\201604062110246_InitialCreate.cs" />
     <Compile Include="Migrations\201604062110246_InitialCreate.Designer.cs">
       <DependentUpon>201604062110246_InitialCreate.cs</DependentUpon>
@@ -772,6 +772,7 @@
     <Content Include="Scripts\package.json" />
     <Content Include="Views\Manage\Compatibilities.cshtml" />
     <Content Include="Views\Manage\Algorithms.cshtml" />
+    <Content Include="Views\Manage\EditAlgorithm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201604062110246_InitialCreate.resx">
@@ -792,7 +793,20 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\OneDrive\Documents\Visual Studio 2015\Projects\OptimalScheduling\ModelingApplication\ModelingApplication.csproj">
+      <Project>{9b127bb7-73e9-4d2a-81a8-104836a58659}</Project>
+      <Name>ModelingApplication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\OneDrive\Documents\Visual Studio 2015\Projects\OptimalScheduling\OptimalSchedulingLogic\OptimalSchedulingLogic.csproj">
+      <Project>{6b76ccb1-d5ce-4348-9241-77ab2380e949}</Project>
+      <Name>OptimalSchedulingLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Scheduling\Scheduling.csproj">
+      <Project>{d67b3925-17b0-4ca6-9180-d69087f38ae0}</Project>
+      <Name>Scheduling</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
