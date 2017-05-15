@@ -5,6 +5,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using Enterprise.Models;
 
 namespace Enterprise.Infrastructure
 {
@@ -138,7 +139,8 @@ namespace Enterprise.Infrastructure
             return result;
         }
 
-        public static IEnumerable<IEnumerable<int>> BuildSchedule(MethodInfo algorithmMethod, int m, IEnumerable<Task> tasks)
+        public static IEnumerable<IEnumerable<int>> BuildSchedule(MethodInfo algorithmMethod, int m,
+            IEnumerable<Task> tasks)
         {
             var lengths = new List<double>();
             var deadlines = new List<DateTime>();
@@ -147,7 +149,128 @@ namespace Enterprise.Infrastructure
                 lengths.Add(t.Duration);
                 deadlines.Add(t.Deadline);
             }
+            return BuildSchedule(algorithmMethod, m, lengths, deadlines);
+        }
+
+        public static IEnumerable<IEnumerable<int>> BuildSchedule(MethodInfo algorithmMethod, int m,
+            IEnumerable<double> lengths, IEnumerable<DateTime> deadlines)
+        {
             return algorithmMethod.Invoke(null, new object[] {m, lengths, deadlines}) as IEnumerable<IEnumerable<int>>;
+        }
+
+        public static Schedule ConvertSchedule(IEnumerable<IEnumerable<int>> algorithmOutput, List<Task> tasks)
+        {
+            var machineSchedules = new List<MachineSchedule>();
+            var machineId = 0;
+            foreach (var machineInfo in algorithmOutput)
+            {
+                var machineSchedule = new MachineSchedule(new Machine(++machineId, ""));
+                foreach (var taskIndex in machineInfo)
+                {
+                    machineSchedule.Tasks.AddLast(tasks[taskIndex]);
+                }
+                machineSchedule.CalculateStartTime();
+                machineSchedules.Add(machineSchedule);
+            }
+            return new Schedule(machineSchedules);
+        }
+
+        public static MethodInfo GetAnalyticFunction(string code)
+        {
+            var entireCode = string.Format(@"
+            using System;
+            using System.Collections.Generic;
+            using System.Linq;
+            using System.Text;
+            using System.Threading.Tasks;
+            using Enterprise.Infrastructure;
+            namespace TempAssembly
+            {{
+	            class TempProgram
+	            {{
+                    public static double Function(Func<int, IEnumerable<double>, IEnumerable<DateTime>, IEnumerable<IEnumerable<int>>> algorithm, AlgorithmInput input)
+                    {{
+                        {0}
+                    }}		            
+	            }}
+            }}", code);
+
+            var provider = new CSharpCodeProvider();
+            var parameters = new CompilerParameters();
+            parameters.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
+            parameters.ReferencedAssemblies.Add("System.dll");
+            parameters.ReferencedAssemblies.Add("System.Core.dll");
+            parameters.ReferencedAssemblies.Add("System.Data.dll");
+            parameters.ReferencedAssemblies.Add("System.Data.DataSetExtensions.dll");
+            parameters.ReferencedAssemblies.Add("System.Xml.dll");
+            parameters.ReferencedAssemblies.Add("System.Xml.Linq.dll");
+            parameters.ReferencedAssemblies.Add((typeof (ServiceMethods)).Assembly.CodeBase);
+            var results = provider.CompileAssemblyFromSource(parameters, entireCode);
+            if (results.Errors.HasErrors)
+            {
+                var sb = new StringBuilder();
+                foreach (CompilerError error in results.Errors)
+                {
+                    sb.AppendLine(string.Format("Error ({0}): {1}", error.ErrorNumber, error.ErrorText));
+                }
+                throw new InvalidOperationException(sb.ToString());
+            }
+
+            var assembly = results.CompiledAssembly;
+            var program = assembly.GetType("TempAssembly.TempProgram");
+            var result = program.GetMethod("Function");
+            return result;
+        }
+
+        public static double CalculateFunctionValue(MethodInfo function, MethodInfo algorithmMethod,
+            AlgorithmInput input)
+        {
+            Func<int, IEnumerable<double>, IEnumerable<DateTime>, IEnumerable<IEnumerable<int>>> algorithm =
+                (m, l, d) => BuildSchedule(algorithmMethod, m, l, d);
+            return (double) function.Invoke(null, new object[] {algorithm, input});
+        }
+
+        public static List<GraphPoint> BuildGraph(Analytic analytic, MethodInfo algorithmMethod,
+            List<AlgorithmInput> inputs)
+        {
+            var analFunction = GetAnalyticFunction(analytic.FunctionCode);
+            var inputsCopy = new List<AlgorithmInput>(inputs);
+            inputsCopy.Sort((x, y) => x.Characteristic.CompareTo(y.Characteristic));
+            var xCurrent = inputsCopy[0].Characteristic;
+            var ind = 0;
+
+            var result = new List<GraphPoint>();
+            var exit = false;
+            while (!exit)
+            {
+                var xNext = xCurrent + analytic.Step;
+                var ySum = 0d;
+                var indBefore = ind;
+                while (inputsCopy[ind].Characteristic < xNext)
+                {
+                    ySum += CalculateFunctionValue(analFunction, algorithmMethod, inputs[ind]);
+                    ind++;
+                    if (ind == inputsCopy.Count)
+                    {
+                        exit = true;
+                        break;
+                    }
+                }
+
+                var y = (ind == indBefore ? 0d : ySum/(ind - indBefore));
+                result.Add(new GraphPoint {X = xCurrent, Y = y});
+                xCurrent = xNext;
+            }
+            
+            return result;
+        }
+
+
+        public class GraphPoint
+        {
+            public double X { get; set; }
+
+            public double Y { get; set; }
         }
     }
 }

@@ -66,6 +66,32 @@ namespace Enterprise.Models
         public string Solution { get; set; }
     }
 
+    public class Analytic
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Назва *")]
+        [Required(ErrorMessage = "Назва аналітики - обов'язкове поле.")]
+        public string Name { get; set; }
+        
+        [Display(Name = "Вихідний код функції аналітики *")]
+        [Required(ErrorMessage = "Код функції аналітики - обов'язкове поле.")]
+        [AllowHtml]
+        public string FunctionCode { get; set; }
+
+        [Display(Name = "\"Крок\" на графіку *")]
+        [Required(ErrorMessage = "Введіть значення кроку на графіку")]
+        [DataType(DataType.Duration, ErrorMessage = "Значення кроку на графіку - дійсне додатнє число.")]
+        public double Step { get; set; }
+
+        [Display(Name = "Опис")]
+        public string Description { get; set; }
+
+        public string UserId { get; set; }
+
+        public DateTime DateAdd { get; set; }
+    }
+
     #region Old
 
     //   public abstract class Item

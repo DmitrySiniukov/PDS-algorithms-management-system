@@ -32,7 +32,6 @@ namespace Enterprise.Infrastructure
         public static List<Algorithm> GetAvailableAlgorithms(string userId)
         {
             var result = new List<Algorithm>();
-
             using (var connection = new SqlConnection(DefaultConnection))
             {
                 connection.Open();
@@ -60,7 +59,6 @@ namespace Enterprise.Infrastructure
                 }
                 connection.Close();
             }
-            
             return result;
         }
 
@@ -135,6 +133,76 @@ namespace Enterprise.Infrastructure
                 }
                 connection.Close();
             }
+        }
+
+        public static List<Analytic> GetAnalytics()
+        {
+            var result = new List<Analytic>();
+            using (var connection = new SqlConnection(DefaultConnection))
+            {
+                connection.Open();
+                using (var cmd = new SqlCommand())
+                {
+                    cmd.CommandText = @"SELECT Id, Name, FunctionCode, Step, Description, UserId, DateAdd FROM Analytics";
+                    cmd.Connection = connection;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result.Add(new Analytic
+                            {
+                                Id = reader.GetFieldValue<int>(0),
+                                Name = reader.GetFieldValue<string>(1),
+                                FunctionCode = reader.GetFieldValue<string>(2),
+                                Step = reader.GetFieldValue<double>(3),
+                                Description = reader.GetFieldValue<string>(4),
+                                UserId = reader.GetFieldValue<string>(5),
+                                DateAdd = reader.GetFieldValue<DateTime>(6)
+                            });
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return result;
+        }
+
+        public static Dictionary<int, List<AlgorithmInput>> GetInputs()
+        {
+            var result = new Dictionary<int, List<AlgorithmInput>>();
+            using (var connection = new SqlConnection(DefaultConnection))
+            {
+                connection.Open();
+                using (var cmd = new SqlCommand())
+                {
+                    cmd.CommandText = @"SELECT Id, Solution, Characteristic, AnalyticId, MachineNum, Tasks FROM Inputs";
+                    cmd.Connection = connection;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var input = new Input
+                            {
+                                Id = reader.GetFieldValue<int>(0),
+                                Solution = reader.GetFieldValue<string>(1),
+                                Characteristic = reader.GetFieldValue<double>(2),
+                                AnalyticId = reader.GetFieldValue<int>(3),
+                                MachineNumber = reader.GetFieldValue<int>(4),
+                                Tasks = reader.GetFieldValue<string>(5)
+                            };
+                            List<AlgorithmInput> algInputs;
+                            if (!result.TryGetValue(input.AnalyticId, out algInputs))
+                            {
+                                algInputs = new List<AlgorithmInput>();
+                                result.Add(input.AnalyticId, algInputs);
+                            }
+                            algInputs.Add(new AlgorithmInput(input));
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return result;
         }
 
         // public static List<IdentityRole<string, IdentityUserRole>> GetAvailableRoles()

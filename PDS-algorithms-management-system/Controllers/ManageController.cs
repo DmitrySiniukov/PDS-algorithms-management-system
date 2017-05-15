@@ -13,7 +13,7 @@ using Enterprise.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.CodeDom.Compiler;
 using ModelingApplication;
-using Scheduling;
+using OptimalSchedulingLogic;
 
 namespace Enterprise.Controllers
 {
@@ -59,36 +59,38 @@ namespace Enterprise.Controllers
 			}
 		}
 
-		#endregion
-
-		//
-		// GET: /Manage/Index
-		[HttpGet]
+        #endregion
+      
+	    //
+        // GET: /Manage/Index
+        [HttpGet]
 		public async Task<ActionResult> Index(ManageMessageId? message)
 		{
-            const int n = 15;
-            const int m = 3;
-            const int iterNum = 100;
-            const int schedulesNum = 100;
+            //const int n = 15;
+            //const int m = 3;
+            //const int iterNum = 100;
+            //const int schedulesNum = 100;
 
-            for (var i = 33; i < schedulesNum; i++)
-            {
-                var currentScale = (i + 1) * 1.0;
-                var inputs = Modeler.CalculateOptimalityCriterionEfficiency(n, m, iterNum, currentScale,
-                    () => Modeler.NextGamma(5.0, 5.0), () => Modeler.NextExponential(currentScale));
+            //for (var i = 33; i < schedulesNum; i++)
+            //{
+            //    var currentScale = (i + 1) * 1.0;
+            //    var inputs = Modeler.CalculateOptimalityCriterionEfficiency(n, m, iterNum, currentScale,
+            //        () => Modeler.NextGamma(5.0, 5.0), () => Modeler.NextExponential(currentScale));
 
-                foreach (var input in inputs)
-                {
-                    Repository.InsertInput(new Input
-                    {
-                        AnalyticId = input.AnalyticId,
-                        Characteristic = input.Characteristic,
-                        MachineNumber = input.MachineNumber,
-                        Solution = input.Solution,
-                        Tasks = input.Tasks
-                    });
-                }
-            }
+            //    foreach (var input in inputs)
+            //    {
+            //        Repository.InsertInput(new Input
+            //        {
+            //            AnalyticId = input.AnalyticId,
+            //            Characteristic = input.Characteristic,
+            //            MachineNumber = input.MachineNumber,
+            //            Solution = input.Solution,
+            //            Tasks = input.Tasks
+            //        });
+            //    }
+            //}
+
+
 
             ViewBag.StatusMessage =
 			message == ManageMessageId.ChangePasswordSuccess ? "Пароль успішно змінено."
