@@ -68,10 +68,10 @@ namespace Enterprise.Controllers
 		{
             //const int n = 15;
             //const int m = 3;
-            //const int iterNum = 10;
+            //const int iterNum = 120;
             //const int schedulesNum = 100;
 
-            //for (var i = 0; i < schedulesNum; i++)
+            //for (var i = 182; i < 190; i++)
             //{
             //    var currentScale = (i + 1) * 1.0;
             //    var inputs = Modeler.CalculateOptimalityCriterionEfficiency(n, m, iterNum, currentScale,
