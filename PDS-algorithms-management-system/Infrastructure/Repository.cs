@@ -62,6 +62,27 @@ namespace Enterprise.Infrastructure
             return result;
         }
 
+        public static void CreateAlgorithm(Algorithm algorithm, string userId)
+        {
+            using (var connection = new SqlConnection(DefaultConnection))
+            {
+                connection.Open();
+                using (var cmd = new SqlCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Algorithms (Name, Code, Description, DateAdd, UserId, Published) VALUES (@name, @code, @description, @dateAdd, @userId, @published)";
+                    cmd.Parameters.AddWithValue("name", algorithm.Name);
+                    cmd.Parameters.AddWithValue("code", algorithm.Code);
+                    cmd.Parameters.AddWithValue("description", algorithm.Description);
+                    cmd.Parameters.AddWithValue("dateAdd", DateTime.Now);
+                    cmd.Parameters.AddWithValue("userId", userId);
+                    cmd.Parameters.AddWithValue("published", false);
+                    cmd.Connection = connection;
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+
         public static Algorithm GetAlgorithm(int id)
         {
             Algorithm result = null;

@@ -351,6 +351,7 @@
     <Content Include="Scripts\bower.json" />
     <Content Include="Scripts\datetimepicker.jquery.json" />
     <Content Include="Scripts\doc.tpl" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gantt\dhtmlxgantt.css" />
     <Content Include="Scripts\gantt\dhtmlxgantt.js" />

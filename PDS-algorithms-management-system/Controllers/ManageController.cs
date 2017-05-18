@@ -158,6 +158,49 @@ namespace Enterprise.Controllers
 	    }
 
         [HttpGet]
+	    public ActionResult CreateAlgorithm()
+        {
+            ViewBag.Title = "Додавання алгоритму";
+            return View("EditAlgorithm", new Algorithm());
+        }
+
+	    [HttpPost]
+	    public ActionResult CreateAlgorithm(Algorithm algorithm)
+	    {
+            if (ModelState.IsValid)
+            {
+                var result = true;
+                try
+                {
+                    var tasks = new List<OptimalSchedulingLogic.Task>
+                    {
+                        new OptimalSchedulingLogic.Task(1, "", 5, new DateTime(2017, 5, 9, 12, 0, 0)),
+                        new OptimalSchedulingLogic.Task(2, "", 7, new DateTime(2017, 5, 9, 12, 2, 0)),
+                        new OptimalSchedulingLogic.Task(3, "", 3, new DateTime(2017, 5, 9, 12, 2, 0)),
+                        new OptimalSchedulingLogic.Task(4, "", 10, new DateTime(2017, 5, 9, 12, 4, 0)),
+                        new OptimalSchedulingLogic.Task(5, "", 8, new DateTime(2017, 5, 9, 12, 5, 0)),
+                        new OptimalSchedulingLogic.Task(6, "", 5, new DateTime(2017, 5, 9, 12, 5, 0)),
+                        new OptimalSchedulingLogic.Task(7, "", 7, new DateTime(2017, 5, 9, 12, 6, 0))
+                    };
+                    var methodInfo = ServiceMethods.GetAlgorithmMethod(algorithm.Code);
+                    var schedule = ServiceMethods.BuildSchedule(methodInfo, 3, tasks);
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("Code", e.Message);
+                    result = false;
+                }
+
+                if (result)
+                {
+                    Repository.CreateAlgorithm(algorithm, User.Identity.GetUserId());
+                    return RedirectToAction("Algorithms");
+                }
+            }
+	        return View("EditAlgorithm", algorithm);
+	    }
+
+	    [HttpGet]
         public ActionResult EditAlgorithm(int id)
         {
             var algorithm = Repository.GetAlgorithm(id);
@@ -191,17 +234,38 @@ namespace Enterprise.Controllers
                     var methodInfo = ServiceMethods.GetAlgorithmMethod(algorithm.Code);
                     var schedule = ServiceMethods.BuildSchedule(methodInfo, 3, tasks);
                 }
+                catch (InvalidOperationException e)
+                {
+                    ModelState.AddModelError("Code",
+                        string.Format("При компілюванні вихідного коду алгоритму було виявлено помилку: \"{0}\"",
+                            e.Message));
+                    result = false;
+                }
                 catch (Exception e)
                 {
-                    ModelState.AddModelError("Code", e.Message);
+                    ModelState.AddModelError("Code",
+                        string.Format("При тестуванні алгоритму на тестовому наборі даних виникла виключна ситуація: \"{0}\"",
+                            e.Message));
                     result = false;
                 }
 
                 if (result)
                 {
-                    Repository.UpdateAlgorithm(algorithm);
+                    if (algorithm.Id == 0)
+                    {
+                        Repository.CreateAlgorithm(algorithm, User.Identity.GetUserId());
+                    }
+                    else
+                    {
+                        Repository.UpdateAlgorithm(algorithm);
+                    }
                     return RedirectToAction("Algorithms");
                 }
+            }
+
+            if (algorithm.Id == 0)
+            {
+                ViewBag.Title = "Додавання алгоритму";
             }
 
             return View(algorithm);
@@ -211,7 +275,7 @@ namespace Enterprise.Controllers
 	    {
             var algorithm = Repository.GetAlgorithm(id);
             var currentUserId = User.Identity.GetUserId();
-            if (algorithm == null || string.Compare(currentUserId, algorithm.UserId, StringComparison.InvariantCultureIgnoreCase) != 0)
+            if (algorithm == null || (!algorithm.Published && string.Compare(currentUserId, algorithm.UserId, StringComparison.InvariantCultureIgnoreCase) != 0))
             {
                 return RedirectToAction("NotFound", "Home");
             }
