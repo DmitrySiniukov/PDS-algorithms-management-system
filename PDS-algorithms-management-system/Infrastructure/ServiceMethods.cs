@@ -9,7 +9,7 @@ using Enterprise.Models;
 
 namespace Enterprise.Infrastructure
 {
-    public class ServiceMethods
+    public static class ServiceMethods
     {
         public static MethodInfo GetAlgorithmMethod(string code)
         {
