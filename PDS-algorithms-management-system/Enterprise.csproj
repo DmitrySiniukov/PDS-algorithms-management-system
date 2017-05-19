@@ -780,6 +780,8 @@
     <Content Include="Views\Manage\EditAlgorithm.cshtml" />
     <Content Include="Views\Manage\AlgorithmAnalysis.cshtml" />
     <Content Include="Views\Home\Graph.cshtml" />
+    <Content Include="Views\Manage\AlgorithmSchedule.cshtml" />
+    <Content Include="Views\Manage\ScheduleResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201604062110246_InitialCreate.resx">

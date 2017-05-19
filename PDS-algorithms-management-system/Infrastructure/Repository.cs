@@ -229,6 +229,22 @@ namespace Enterprise.Infrastructure
             return result;
         }
 
+        public static void DeleteAlgorithm(int id)
+        {
+            using (var connection = new SqlConnection(DefaultConnection))
+            {
+                connection.Open();
+                using (var cmd = new SqlCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Algorithms WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("id", id);
+                    cmd.Connection = connection;
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+
         // public static List<IdentityRole<string, IdentityUserRole>> GetAvailableRoles()
        // {
        //     var result = new List<IdentityRole<string, IdentityUserRole>>();

@@ -24,6 +24,11 @@
 <h2>Мої алгоритми</h2>
 <hr />
 
+@if (!string.IsNullOrEmpty(ViewBag.StatusMessage))
+{
+    <p class="text-success">@ViewBag.StatusMessage</p>
+}
+
 <div class="panel">
     <div class="panel-body">
         <div style="margin-bottom: 15px;">
@@ -53,7 +58,7 @@
                             @alg.DateAdd.ToUkrDateTimeString()
                         </td>
                         <td>
-                            @Html.ActionLink("Розклад", "BuildSchedule", null, new {title = "Побудова розкладу", @style = "color: #00008b;"})<span> | </span>
+                            @Html.ActionLink("Розклад", "AlgorithmSchedule", "Manage", routeValues: new { id = alg.Id }, htmlAttributes: new { title = "Редагування алгоритм", @style = "color: #00008b;"})<span> | </span>
                             @Html.ActionLink("Редагувати", "EditAlgorithm", "Manage", routeValues: new {id = alg.Id}, htmlAttributes: new {title = "Редагування алгоритм", @style = "color: #b8860b;"})<span> | </span>
                             @Html.ActionLink("Видалити", "DeleteAlgorithm", "Manage", routeValues: new {id = alg.Id}, htmlAttributes: new {title = "Видалення алгоритму", @style = "color: red;"})
                         </td>

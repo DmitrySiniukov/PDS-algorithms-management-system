@@ -1,0 +1,41 @@
+﻿@model Enterprise.Models.ScheduleViewModel
+@{
+    ViewBag.Title = "Розклад";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@functions{
+    public string GetDateString(DateTime date)
+    {
+        return string.Format("{0}.{1}.{2} {3:D2}:{4:D2}", date.Day, date.Month, date.Year, date.Hour, date.Minute);
+    }
+}
+
+<div>
+    <h2>@ViewBag.Title</h2>
+
+    <h4>ПДС-алгоритм:</h4>
+    <h5>@string.Format("Час побудови: {0} мс", Model.FastAlgorithmTime)</h5>
+    @if (Model.AccurateAlgorithm || Model.FastAlgorithmSchedule.OptimalityCriterion)
+    {
+        <h5>@string.Format("Критерій оптимальності спрацював: {0}", Model.FastAlgorithmSchedule.OptimalityCriterion)</h5>
+        <h5>@string.Format("Розклад оптимальний: {0}", Model.IsOptimal)</h5>
+    }
+
+    @if (Model.AccurateAlgorithm)
+    {
+        <h4>Метод гілок та меж:</h4>
+        <h5>@string.Format("Час виконання: {0} мс", Model.AccurateAlgorithmTime)</h5>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.FileId))
+    {
+        @Html.ActionLink("Файл результатів", "ResultFile", new { id = Model.FileId })
+    }
+
+    @if (Model.Visualization)
+    {
+        <div id="gantt-chart" style='width: 100%;'></div>
+        <input id="gantt-chart-data" type="hidden" value="@Model.GetJson()" />
+    }
+</div>

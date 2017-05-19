@@ -12,6 +12,9 @@ using Microsoft.Owin.Security;
 using Enterprise.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.CodeDom.Compiler;
+using System.Diagnostics;
+using System.IO;
+using System.Net.Mime;
 using ModelingApplication;
 using OptimalSchedulingLogic;
 
@@ -194,6 +197,7 @@ namespace Enterprise.Controllers
                 if (result)
                 {
                     Repository.CreateAlgorithm(algorithm, User.Identity.GetUserId());
+                    ViewBag.StatusMessage = "Алгоритм успішно створено";
                     return RedirectToAction("Algorithms");
                 }
             }
@@ -254,10 +258,12 @@ namespace Enterprise.Controllers
                     if (algorithm.Id == 0)
                     {
                         Repository.CreateAlgorithm(algorithm, User.Identity.GetUserId());
+                        ViewBag.StatusMessage = "Алгоритм успішно створено";
                     }
                     else
                     {
                         Repository.UpdateAlgorithm(algorithm);
+                        ViewBag.StatusMessage = "Алгоритм успішно відредаговано";
                     }
                     return RedirectToAction("Algorithms");
                 }
@@ -271,8 +277,159 @@ namespace Enterprise.Controllers
             return View(algorithm);
 	    }
 
-	    public ActionResult AlgorithmAnalysis(int id)
-	    {
+        [HttpGet]
+        public ActionResult AlgorithmSchedule(int id)
+        {
+            var algorithm = Repository.GetAlgorithm(id);
+            var currentUserId = User.Identity.GetUserId();
+            if (algorithm == null || (!algorithm.Published && string.Compare(currentUserId, algorithm.UserId, StringComparison.InvariantCultureIgnoreCase) != 0))
+            {
+                return RedirectToAction("NotFound", "Home");
+            }
+            return View(new InputScheduleViewModel {AlgorithmId = id});
+        }
+
+        [HttpPost]
+        public ActionResult AlgorithmSchedule(InputScheduleViewModel model)
+        {
+            if (model.TasksFile == null || model.MachinesFile == null)
+            {
+                ModelState.AddModelError("", "Введіть файли з вхідними даними");
+                return View(model);
+            }
+
+            var tasks = new List<OptimalSchedulingLogic.Task>();
+            var taskStream = new StreamReader(model.TasksFile.InputStream);
+            var baseDeadline = new DateTime(2016, 12, 28, 12, 0, 0);
+            try
+            {
+                var taskNumber = int.Parse(taskStream.ReadLine());
+                for (var i = 0; i < taskNumber; ++i)
+                {
+                    var values = taskStream.ReadLine().Split(' ');
+                    tasks.Add(new OptimalSchedulingLogic.Task(int.Parse(values[0]), values[1], double.Parse(values[2]), baseDeadline.AddMinutes(double.Parse(values[3]))));
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Файл з завданнями має невірний формат");
+                return View(model);
+            }
+
+            var machines = new List<Machine>();
+            var machinesStream = new StreamReader(model.MachinesFile.InputStream);
+            try
+            {
+                var machinesNumber = int.Parse(machinesStream.ReadLine());
+                for (var i = 0; i < machinesNumber; ++i)
+                {
+                    var values = machinesStream.ReadLine().Split(' ');
+                    machines.Add(new Machine(int.Parse(values[0]), values[1]));
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Файл з верстатами має невірний формат");
+                return View(model);
+            }
+
+            var sw1 = new Stopwatch();
+            sw1.Start();
+            var fastAlgorithmSchedule = Schedule.BuildWithPavlovAlgorithm(tasks, machines);
+            sw1.Stop();
+            var fastAlgorithmTime = sw1.ElapsedMilliseconds;
+
+            var scheduleModel = new ScheduleViewModel
+            {
+                FastAlgorithmSchedule = fastAlgorithmSchedule,
+                FastAlgorithmTime = fastAlgorithmTime,
+                IsOptimal = fastAlgorithmSchedule.OptimalityCriterion
+            };
+
+            Schedule accurateAlgorithmSchedule = null;
+            if (model.BBMethod)
+            {
+                var sw2 = new Stopwatch();
+                sw2.Start();
+                accurateAlgorithmSchedule = Schedule.BuildOptimalSchedule(tasks, machines);
+                sw2.Stop();
+                var accurateAlgorithmTime = sw2.ElapsedMilliseconds;
+
+                if (accurateAlgorithmSchedule != null)
+                {
+                    scheduleModel.AccurateAlgorithmSchedule = accurateAlgorithmSchedule;
+                    scheduleModel.AccurateAlgorithmTime = accurateAlgorithmTime;
+                    scheduleModel.AccurateAlgorithm = true;
+
+                    if (!scheduleModel.IsOptimal)
+                    {
+                        var optimal = fastAlgorithmSchedule.CompareTo(accurateAlgorithmSchedule) == 0;
+                        scheduleModel.IsOptimal = optimal;
+                    }
+                }
+            }
+
+            var fileName = Path.GetTempFileName();
+            using (var fileStream = new StreamWriter(fileName))
+            {
+                fileStream.WriteLine("n = {0}, m = {1}", tasks.Count, machines.Count);
+                fileStream.WriteLine();
+
+                if (model.BBMethod)
+                {
+                    fileStream.WriteLine("За ПДС-алгоритмом:");
+                }
+
+                printSchedule(fastAlgorithmSchedule, fileStream, baseDeadline);
+
+                if (model.BBMethod)
+                {
+                    fileStream.WriteLine();
+                    fileStream.WriteLine("За точним алгоритмом:");
+
+                    if (accurateAlgorithmSchedule == null)
+                    {
+                        fileStream.WriteLine("Виникла помилка...");
+                    }
+                    else
+                    {
+                        printSchedule(accurateAlgorithmSchedule, fileStream, baseDeadline);
+                    }
+                }
+            }
+
+            scheduleModel.Visualization = model.Visualization;
+            scheduleModel.FileId = Path.GetFileNameWithoutExtension(fileName);
+
+            return View("ScheduleResult", scheduleModel);
+        }
+
+        public ActionResult ResultFile(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            byte[] fileBytes;
+            try
+            {
+                var tempPath = Path.GetTempPath();
+                var path = string.Format(@"{0}/{1}.tmp", tempPath, id);
+                fileBytes = System.IO.File.ReadAllBytes(path);
+                System.IO.File.Delete(path);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            var fileName = "Result.txt";
+            return File(fileBytes, MediaTypeNames.Application.Octet, fileName);
+        }
+
+        public ActionResult AlgorithmAnalysis(int id)
+        {
             var algorithm = Repository.GetAlgorithm(id);
             var currentUserId = User.Identity.GetUserId();
             if (algorithm == null || (!algorithm.Published && string.Compare(currentUserId, algorithm.UserId, StringComparison.InvariantCultureIgnoreCase) != 0))
@@ -280,29 +437,61 @@ namespace Enterprise.Controllers
                 return RedirectToAction("NotFound", "Home");
             }
 
-	        var algorithmMethod = ServiceMethods.GetAlgorithmMethod(algorithm.Code);
-	        var analytics = Repository.GetAnalytics();
-	        var inputs = Repository.GetInputs();
-	        var model = new AlgorithmAnalysisModel
-	        {
-	            Algorithm = algorithm,
-	            AlgorithmAnalytics = new List<AlgorithmAnalytic>()
-	        };
+            var algorithmMethod = ServiceMethods.GetAlgorithmMethod(algorithm.Code);
+            var analytics = Repository.GetAnalytics();
+            var inputs = Repository.GetInputs();
+            var model = new AlgorithmAnalysisModel
+            {
+                Algorithm = algorithm,
+                AlgorithmAnalytics = new List<AlgorithmAnalytic>()
+            };
 
             foreach (var analytic in analytics)
-	        {
-	            List<AlgorithmInput> analyticInputs;
-	            if (!inputs.TryGetValue(analytic.Id, out analyticInputs))
-	            {
-	                continue;
-	            }
+            {
+                List<AlgorithmInput> analyticInputs;
+                if (!inputs.TryGetValue(analytic.Id, out analyticInputs))
+                {
+                    continue;
+                }
                 model.AlgorithmAnalytics.Add(new AlgorithmAnalytic(analytic, ServiceMethods.BuildGraph(analytic, algorithmMethod, analyticInputs)));
             }
 
-	        return View(model);
+            return View(model);
+        }
+
+	    public ActionResult DeleteAlgorithm(int id)
+	    {
+            var algorithm = Repository.GetAlgorithm(id);
+            var currentUserId = User.Identity.GetUserId();
+            if (algorithm == null || string.Compare(currentUserId, algorithm.UserId, StringComparison.InvariantCultureIgnoreCase) != 0)
+            {
+                return RedirectToAction("NotFound", "Home");
+            }
+	        Repository.DeleteAlgorithm(id);
+	        ViewBag.StatusMessage = "Алгоритм успішно видалено";
+
+            return RedirectToAction("Algorithms", "Manage");
 	    }
 
-	    #region Products
+
+	    private void printSchedule(Schedule schedule, StreamWriter streamWriter, DateTime baseDeadline)
+        {
+            foreach (var machineSchedule in schedule)
+            {
+                var st = (machineSchedule.StartTime - baseDeadline).TotalMinutes;
+                streamWriter.WriteLine("({0}) \"{1}\" (r{0} = {2})", machineSchedule.Machine.Id, machineSchedule.Machine.Name, st);
+                var startTime = (machineSchedule.StartTime - baseDeadline).TotalMinutes;
+                foreach (var task in machineSchedule.Tasks)
+                {
+                    var d = (task.Deadline - baseDeadline).TotalMinutes;
+                    streamWriter.WriteLine("\t({0}) \"{1}\"\t{2}\t{3}\t{4}\t{5}", task.Id, task.Name, task.Duration, d, startTime,
+                        startTime + task.Duration);
+                    startTime += task.Duration;
+                }
+            }
+        }
+
+        #region Products
 
         //[Authorize(Roles = "Technologist")]
         //[HttpGet]

@@ -1,0 +1,43 @@
+﻿@model Enterprise.Models.InputScheduleViewModel
+@{
+    ViewBag.Title = "Вхідні дані для побудови розкладу";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.StatusMessage))
+{
+    <p class="text-success">@ViewBag.StatusMessage</p>
+}
+
+<div class="panel">
+    <div class="panel-body">
+        <div class="panel-heading text-center">
+            <h4>Вибір вхідних даних</h4>
+        </div>
+        @using (Html.BeginForm("AlgorithmSchedule", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary()
+            @Html.HiddenFor(x => x.AlgorithmId)
+            <div class="form-group">
+                <label>Завдання</label>
+                @Html.TextBoxFor(x => x.TasksFile, new { type = "file", @name = "Tasks" })
+            </div>
+            <div class="form-group">
+                <label>Верстати</label>
+                @Html.TextBoxFor(x => x.MachinesFile, new { type = "file", @name = "Machines" })
+            </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(x => x.BBMethod, new { @checked = bool.TrueString })
+                <label>Пошук оптимального рішення</label>
+            </div>
+            <div class="form-group">
+                @Html.CheckBoxFor(x => x.Visualization, new { @checked = bool.TrueString })
+                <label>Вивести діаграму Ганта</label>
+            </div>
+            <div class="form-group text-center">
+                <input class="btn btn-primary" type="submit" value="Далі" />
+            </div>}
+    </div>
+</div>
